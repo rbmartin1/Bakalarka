@@ -1,20 +1,20 @@
 import ctypes
 
-# Buffer size
+# Buffer - makro pre velkost
 BUFFER_SIZE = 10
 
-# Allocate buffer
+# Alokacia
 buffer = ctypes.create_string_buffer(b"\x00" * BUFFER_SIZE)
 
 def main():
 
-    # Attacker's input longer than the buffer
-    user_input = "A" * (BUFFER_SIZE - 1)  # Adjusted to fit within buffer size
+    # Utocnikov vstup vacsi ako buffer
+    user_input = "A" * (BUFFER_SIZE + 2)
 
-    # Perform buffer overflow by directly writing to memory
-    buffer.raw = user_input.encode()
+    # Vykonanie utoku priamym zapisanim do pamate
+    ctypes.memmove(buffer, user_input.encode(), len(user_input))
 
-    # Check the buffer after the overflow
+    # Vypis po utoku
     print("Buffer after overflow:", buffer.raw)
 
 if __name__ == "__main__":
