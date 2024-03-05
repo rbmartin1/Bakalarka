@@ -16,6 +16,7 @@ def login(username, password):
 
 # Pokus o prihlasenie so spravnymi udajmi
 login("admin", "password123")
+# Pokus o prihlasenie s nespravnymi udajmi
 login("Janko", "heslo")
 
 # Bypass prihlasenia priamym pristupom do databazy
