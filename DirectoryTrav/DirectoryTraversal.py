@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, send_from_directory, abort
 
 app = Flask(__name__)
-# Here we append 'DirectoryTrav' to the base directory path
+# vytvorenie cesty
 BASE_DIR = os.path.abspath(os.path.join("DirectoryTrav", "app_files"))
 print("Serving files from:", BASE_DIR)
 
@@ -11,9 +11,9 @@ def download():
     filename = request.args.get('filename')
 
     secure_filename = os.path.normpath(os.path.join(BASE_DIR, filename))
-    print("Attempting to serve:", secure_filename)  # Print the absolute path to the file
+
     if not secure_filename.startswith(BASE_DIR):
-        abort(403)  # Forbidden access if trying to access files outside of BASE_DIR
+        abort(403)  # Forbidden access 
     if not os.path.exists(secure_filename):
         print("File does not exist:", secure_filename)
         abort(404)  # File not found
@@ -27,7 +27,8 @@ if __name__ == '__main__':
 
 
 # http://127.0.0.1:5000/download?filename=example.txt
-
+# Downloading...
+# 127.0.0.1 - - [22/Apr/2024 20:25:19] "GET /download?filename=example.txt HTTP/1.1" 304 -
 
 # http://127.0.0.1:5000/download?filename=../../../etc/passwd
 # pri snahe použiť symlink dostaneme 403 - zabezpečenie funguje
