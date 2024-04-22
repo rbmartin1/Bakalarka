@@ -1,12 +1,28 @@
-# string s tab characterom
-sample_text = "This is a\ttest."
+import array
+import sys
 
-# tabsize
-large_tabsize = 1000000000
+def safe_integer_operation():
+    # list i
+    arr = array.array('i', [0])
 
-# použitie expandtabs
-try:
-    modified_text = sample_text.expandtabs(large_tabsize)
-    print("Modified text:", modified_text)
-except OverflowError as e:
-    print("An error occurred:", e)
+    # Max hodnota pre 32-bit signed integer
+    max_int32 = 2147483647
+    min_int32 = -2147483648
+
+    arr[0] = max_int32
+    try:
+        # Kontrola pred inkrementáciou, aby sa zabránilo pretečeniu
+        if arr[0] < max_int32:
+            arr[0] += 1
+        else:
+            raise OverflowError("Attempted to increment beyond the maximum limit for a 32-bit signed integer.")
+        
+        print(f"Value after safe increment: {arr[0]}")
+    except OverflowError as e:
+        print(f"OverflowError: {e}")
+
+def main():
+    safe_integer_operation()
+
+if __name__ == "__main__":
+    main()
