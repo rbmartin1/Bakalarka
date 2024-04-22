@@ -4,27 +4,27 @@ import binascii
 
 def secure_hash(x, salt=None):
     """
-    Secure hash function: Hashes an input using SHA-256 with an optional salt.
-    If no salt is provided, generates a new one.
-    Returns the hash and the salt used.
+    Zabezpečená hash funkcia: Hashuje vstup pomocou SHA-256 s voliteľnou salt.
+    Ak nie je zadaná žiadna salt, vygeneruje novú salt.
+    Vráti hash a použitú salt.
     """
     if salt is None:
-        # Generate a new 16-byte salt
+        # Generovanie 16byte salt
         salt = os.urandom(16)
-    # Prepend the salt to the input, compute the SHA-256 hash, and return the hash and salt
+    # pou6itie salt, kalkulacia hashu
     hash_value = hashlib.sha256(salt + x.encode()).hexdigest()
     return hash_value, binascii.hexlify(salt).decode()
 
 def find_secure_collision(num_samples):
     """
-    Attempt to find a collision in a secure hashing setup.
-    This is significantly more difficult due to salting and the use of SHA-256.
+    Pokus o nájdenie kolízie v bezpečnom nastavení hashovania.
+    Je to podstatne ťažšie vďaka salt a použitiu SHA-256.
     """
     hashes = {}
     for _ in range(num_samples):
-        # Generate a random string
+        # Nahodny retazec
         random_string = str(os.urandom(8))
-        # Compute the secure hash, with a new salt each time
+        # Vyratanie hashu 
         hash_value, salt = secure_hash(random_string)
         if hash_value in hashes:
             print(f"Collision found: {random_string} (salt: {salt}) and {hashes[hash_value][0]} (salt: {hashes[hash_value][1]}) both hash to {hash_value}")
@@ -32,8 +32,8 @@ def find_secure_collision(num_samples):
         hashes[hash_value] = (random_string, salt)
     return None
 
-# Running the secure collision check
-result = find_secure_collision(10000)  # Adjust the number of samples as needed
+# Volanie funkcie
+result = find_secure_collision(10000)  
 if result:
     print(f"Collision details: {result}")
 else:
