@@ -3,10 +3,10 @@ from lxml import etree
 def parse_xml(xml_data):
     # Parse the XML data
     try:
-        # Create a parser with entity expansion disabled and no network access
+        # Vytvorenie parsera s vypnutým rozširovaním entít a bez prístupu k sieti
         parser = etree.XMLParser(resolve_entities=True)
         root = etree.fromstring(xml_data, parser)
-        # Extract information from the XML
+        # Extract informácií z XML
         username = root.find('username').text
         password = root.find('password').text
         return f'Username: {username}, Password: {password}'
@@ -14,7 +14,7 @@ def parse_xml(xml_data):
         return f'Error: {e}'
 
 if __name__ == '__main__':
-    # XML data containing user credentials and XXE entity reference
+    # XML data obsahujuce prihlasovacie udaje
     xml_data = """
     <!DOCTYPE data [
         <!ENTITY xxe SYSTEM "file:///etc/passwd">
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     </data>
     """
     
-    # Parse the XML data
+    # prevolanie funckie
     result = parse_xml(xml_data)
     print(result)
 
