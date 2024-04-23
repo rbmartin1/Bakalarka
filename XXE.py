@@ -14,7 +14,7 @@ def parse_xml(xml_data):
         return f'Error: {e}'
 
 if __name__ == '__main__':
-    # XML data obsahujuce prihlasovacie udaje
+    # XML data
     xml_data = """
     <!DOCTYPE data [
         <!ENTITY xxe SYSTEM "file:///etc/passwd">
