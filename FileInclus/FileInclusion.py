@@ -54,6 +54,3 @@ if __name__ == '__main__':
 
 
 
-if __name__ == '__main__':
-    print(f"Current working directory: {os.getcwd()}")
-    app.run(debug=True)
