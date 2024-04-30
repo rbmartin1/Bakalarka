@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     # zakladny priecinok
-    base_dir = 'FileInclus'
+    base_dir = 'FileInclus\\data'
 
     # ziskanie file_name z url ak nie tak 'data/default.txt'
     file_name = request.args.get('file', 'data/default.txt')
