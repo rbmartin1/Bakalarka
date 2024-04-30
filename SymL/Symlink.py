@@ -1,7 +1,9 @@
 import os
 import stat
+print("Current working directory:", os.getcwd())
 
 def is_symlink(filename):
+    
     try:
         # Kontrola, či má súbor atribút reparse point, vyuzivany pre symlinky
         return os.stat(filename, follow_symlinks=False).st_file_attributes & stat.FILE_ATTRIBUTE_REPARSE_POINT != 0
@@ -11,10 +13,11 @@ def is_symlink(filename):
 
 def write_to_file_securely(filename, data):
     # overenie ci je symlink pomocou funckie
-    if is_symlink(filename):
+    filepath = os.path.join(os.getcwd(), os.path.join('SymL\\data', filename)) 
+    if is_symlink(filepath):
         raise ValueError("Cannot write to a symlink!")
     
-    with open(filename, 'w') as f:
+    with open(filepath, 'w') as f:
         f.write(data)
 
 # Testy
